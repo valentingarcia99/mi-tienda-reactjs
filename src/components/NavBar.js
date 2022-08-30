@@ -1,10 +1,10 @@
-import logo from '../logo.svg'
+import CartWidget from './CartWidget';
 
 const NavBar = () => {
     return (
         <div className="NavBar">
             <h1><b>Tienda</b></h1>
-            <img src={logo} className="App-logo" alt="logo" />
+            <CartWidget />
             <ul className="listaNavBar">
                 <li><a href="">Productos</a></li>
                 <li><a href="">Contacto</a></li>

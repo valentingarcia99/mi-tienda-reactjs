@@ -5,6 +5,7 @@
 .App-logo {
   height: 15vmin;
   pointer-events: none;
+  margin-left: 10px;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -15,7 +16,7 @@
 
 .App-header {
   background-color: #282c34;
-  min-height: 100vh;
+  min-height: 15vh;
   justify-content: start;
   font-size: calc(10px + 2vmin);
   color: white;
@@ -54,4 +55,11 @@
 a {
   text-decoration: none;
   color: white;
+}
+
+.Body {
+  background-color: rgb(240, 76, 76);
+  min-height: 100vh;
+  font-size: 42px;
+  font-weight: 500;
 }
