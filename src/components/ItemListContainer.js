@@ -17,7 +17,7 @@ const ItemListContainer = () => {
   const getProducts =  new Promise(()=>{
       setTimeout(() => {
         setProductList(data);
-      }, 100);
+      }, 2000);
     });
   
   const stock = 8

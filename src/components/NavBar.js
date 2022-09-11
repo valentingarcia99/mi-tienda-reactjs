@@ -6,8 +6,8 @@ const NavBar = () => {
             <h1><b>Tienda</b></h1>
             <CartWidget />
             <ul className="listaNavBar">
-                <li><a href="">Productos</a></li>
-                <li><a href="">Contacto</a></li>
+                <li>Productos</li>
+                <li>Contacto</li>
             </ul>
         </div>
     )
