@@ -1,4 +1,4 @@
-import milogo from '../milogo.png'
+import milogo from "../../milogo.png"
 
 const CartWidget = () => {
   return (

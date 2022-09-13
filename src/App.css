@@ -58,8 +58,10 @@ a {
 }
 
 .Body {
-  background-color: rgb(240, 76, 76);
+  background-color: rgb(255, 45, 45);
+  width: 100%;
   min-height: 100vh;
   font-size: 24px;
   font-weight: 300;
+  display: inline-block;
 }

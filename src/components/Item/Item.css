@@ -1,5 +1,8 @@
 .Card {
     display: inline-block;
+    color: black;
+    background-color: rgb(252, 65, 65);
+    text-align: center;
     padding: 15px;
     border: 3px solid;
     border-radius: 5px;
