@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
-import ItemCount from "../ItemCount/ItemCount"
 import data from "../Data/MockData"
 import ItemList from "./ItemList"
 
@@ -30,15 +29,9 @@ const ItemListContainer = () => {
 });
 
 
-
-
-
-  const stock = 8
-
   return (
     <div className="Body">
     <ItemList lista={productList}/>
-    <ItemCount stock={stock}/>
     </div>
   )
 }
