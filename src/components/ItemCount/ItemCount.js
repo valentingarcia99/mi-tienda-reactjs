@@ -1,4 +1,9 @@
+import { useContext } from "react";
+import { CartContext } from "../../context/cartContext";
+
 const ItemCount = ({stock, initialState, setInitialState}) => {
+
+  const { clear } = useContext(CartContext);
 
     const onAdd = () => {
       if (initialState >= stock) {
@@ -23,6 +28,7 @@ const ItemCount = ({stock, initialState, setInitialState}) => {
         <div>Stock: {stock}</div>
         <button onClick={onAdd}>+</button>
         <button onClick={onRemove}>-</button>
+        <button onClick={clear}>Limpiar carrito</button>
     </div>
   )
 }
