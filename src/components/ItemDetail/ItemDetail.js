@@ -25,7 +25,7 @@ const ItemDetail = ({lista}) => {
                 price={product.price} 
                 image={product.image} />
                 <ItemCount stock={product.stock} initialState={initialState} setInitialState={setInitialState}/>
-                <button onClick={() => onAdd(product)}><Link to={'/cart'}>Finalizar mi compra</Link></button>
+                <button onClick={() => onAdd(product)}><Link to={'/cart'}>Añadir al carrito</Link></button>
               </div>
 
             ))

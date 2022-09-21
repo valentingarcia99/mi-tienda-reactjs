@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 import data from "../Data/MockData"
 import ItemList from "./ItemList"
 
@@ -31,6 +31,7 @@ const ItemListContainer = () => {
 
   return (
     <div className="Body">
+    <Link to="/cart">Carrito</Link>
     <ItemList lista={productList}/>
     </div>
   )
