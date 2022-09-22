@@ -5,7 +5,7 @@ import { useContext } from "react";
 
 const NavBar = () => {
 
-    const { cart, totalProducts } = useContext(CartContext);
+    const { cart } = useContext(CartContext);
 
     return (
         <div className="NavBar">
@@ -16,7 +16,7 @@ const NavBar = () => {
                 <li><Link to={'category/Rifle'}>Rifles</Link></li>
             </ul>
             <div style={{display: 'contents'}}>
-                <p>{cart.length}</p>
+                {cart.length > 0 && <p>{cart.length}</p>}
                 <img src='https://cdn-icons-png.flaticon.com/512/2543/2543193.png' height={'50px'}/>
             </div>
         </div>

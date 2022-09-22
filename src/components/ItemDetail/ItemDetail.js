@@ -6,7 +6,7 @@ import ItemCount from "../ItemCount/ItemCount"
 
 const ItemDetail = ({lista}) => {
 
-  const [initialState, setInitialState] = useState(1);
+  const [initialState, setInitialState] = useState(0);
 
   const { addToCart } = useContext(CartContext);
 
@@ -25,7 +25,7 @@ const ItemDetail = ({lista}) => {
                 price={product.price} 
                 image={product.image} />
                 <ItemCount stock={product.stock} initialState={initialState} setInitialState={setInitialState}/>
-                <button onClick={() => onAdd(product)}><Link to={'/cart'}>Añadir al carrito</Link></button>
+                {initialState > 0 && <button onClick={() => onAdd(product)}><Link to={'/cart'}>Añadir al carrito</Link></button>}
               </div>
 
             ))
