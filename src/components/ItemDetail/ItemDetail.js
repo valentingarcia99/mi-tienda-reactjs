@@ -4,7 +4,7 @@ import { CartContext } from "../../context/cartContext"
 import Item from "../Item/Item"
 import ItemCount from "../ItemCount/ItemCount"
 
-const ItemDetail = ({lista}) => {
+const ItemDetail = ({product}) => {
 
   const [initialState, setInitialState] = useState(0);
 
@@ -15,9 +15,6 @@ const ItemDetail = ({lista}) => {
   }
 
     return (
-      <div>
-        {
-            lista.map((product) => (
               <div style={{display: 'flex', flexDirection: 'column', alignItems: 'start'}}>
                 <Item
                 key={product.id}
@@ -27,11 +24,7 @@ const ItemDetail = ({lista}) => {
                 <ItemCount stock={product.stock} initialState={initialState} setInitialState={setInitialState}/>
                 {initialState > 0 && <button onClick={() => onAdd(product)}><Link to={'/cart'}>Añadir al carrito</Link></button>}
               </div>
-
-            ))
-        }
-      </div>
-    )
+            )
   }
 
 export default ItemDetail

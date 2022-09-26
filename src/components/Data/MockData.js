@@ -18,7 +18,7 @@ const data = [
 
     {
         id: '3',
-        title: 'Specter',
+        title: 'Spectre',
         price: 1600,
         category: 'Rifle',
         image: 'https://codigoesports.com/wp-content/uploads/2020/05/SPECTRE-VALORANT.png',

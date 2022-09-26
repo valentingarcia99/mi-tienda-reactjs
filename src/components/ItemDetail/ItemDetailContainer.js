@@ -1,31 +1,30 @@
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import ItemDetail from "./ItemDetail"
-import data from "../Data/MockData"
+import { doc, getFirestore, getDoc } from 'firebase/firestore'
 
 const ItemDetailContainer = () => {
 
   const {id} = useParams();
-
+  const db = getFirestore();
+  
   const [productDetail, setProductDetail] = useState([])
 
+  const getProduct = () => {
+    const queryDoc = doc(db, 'items', id)
+
+    getDoc(queryDoc)
+      .then((res) => {
+        setProductDetail({id: res.id, ...res.data()})
+      })
+  }
+  
   useEffect(() => {
-    getProducts.then((response) => {
-      setProductDetail(response)
-    })
+    getProduct();
   }, [])
-  
-
-  const getProducts = new Promise((resolve)=>{
-    setTimeout(() => {
-      resolve(data.filter(prod => prod.id === id))
-    }, 100);
-  }) 
-  
-
 
   return (
-    <ItemDetail lista={productDetail}/>
+    <ItemDetail product={productDetail}/>
   )
 }
 

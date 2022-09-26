@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { Link, useParams } from "react-router-dom"
-import data from "../Data/MockData"
 import ItemList from "./ItemList"
+import { getFirestore, getDocs, collection, query, where } from 'firebase/firestore'
 
 const ItemListContainer = () => {
 
@@ -9,25 +9,35 @@ const ItemListContainer = () => {
 
   const [productList, setProductList] = useState([])
 
-  useEffect (() => {
-    if(categoryName){
-        const response = data.filter((prod) => prod.category === categoryName);
-        setProductList(response);
-    }else{
-        getProducts.then((response) => {
-            setProductList(response);
+  const getProducts = () => {
+    const db = getFirestore();
+    const querySnapshot = collection(db, 'items')
+
+    if (categoryName) {
+      const queryFilter = query(querySnapshot, where('categoryId', '==', categoryName));
+
+      getDocs(queryFilter).then((response) => {
+        const data = response.docs.map((product) => {
+          return {id: product.id, ...product.data()};
         })
-    }        
-},[categoryName])
+        setProductList(data)
+        })
 
+    } else {
 
+      getDocs(querySnapshot).then((response) => {
+        const data = response.docs.map((product) => {
+          return {id: product.id, ...product.data()};
+        })
+        setProductList(data)
+        })
+      }
+      
+  }
 
-  const getProducts = new Promise((resolve, reject) => { 
-    setTimeout(() => {
-        resolve(data);
-    }, 100);
-});
-
+  useEffect (() => {
+    getProducts()    
+  },[categoryName])
 
   return (
     <div className="Body">

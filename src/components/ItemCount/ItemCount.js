@@ -15,7 +15,7 @@ const ItemCount = ({stock, initialState, setInitialState}) => {
     }
 
     const onRemove = () => {
-      if (initialState === 1) {
+      if (initialState === 0) {
         return;
       } 
         setInitialState(initialState - 1)
