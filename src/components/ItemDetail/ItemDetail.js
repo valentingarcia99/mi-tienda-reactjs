@@ -15,7 +15,7 @@ const ItemDetail = ({product}) => {
   }
 
     return (
-              <div style={{display: 'flex', flexDirection: 'column', alignItems: 'start'}}>
+              <div className="Card" style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
                 <Item
                 key={product.id}
                 title={product.title} 

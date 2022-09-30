@@ -8,3 +8,15 @@
     border-radius: 5px;
     margin: 20px 10px;
 }
+
+.CardCart {
+    width: 200px;
+    flex-direction: column;
+    color: black;
+    background-color: rgb(252, 65, 65);
+    text-align: center;
+    padding: 10px;
+    border: 3px solid;
+    border-radius: 5px;
+    margin: 20px 10px;
+}

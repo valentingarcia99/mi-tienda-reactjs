@@ -24,16 +24,7 @@ export const CartProvider = ({children}) => {
     }
 
     const removeItem = (productId) => {
-        let nuevoArreglo = [];
-
-        cart.forEach((product) => {
-            if (product.id === productId) {
-                console.log(product);
-            } else {
-                nuevoArreglo.push(product);
-            }
-        })
-        setCart(nuevoArreglo)
+        setCart(cart.filter((product) => product.id !== productId))
     }
 
     return (

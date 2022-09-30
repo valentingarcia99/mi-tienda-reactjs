@@ -7,50 +7,41 @@ import { collection, addDoc, getFirestore, doc, updateDoc } from "firebase/fires
 const Cart = () => {
 
   const navigate = useNavigate();
+  const {cart, removeItem, clear} = useContext(CartContext);
 
   const [order, setOrder] = useState({
     buyer: {
-      name: 'Carlos',
-      phone: '1120531737',
-      email: 'mail@gmail.com'
+      name: '',
+      phone: '',
+      email: '',
     },
-    items: [],
-    total: 0,
-    date: '',
+    items: cart,
+    total: cart.reduce((valorPasado, valorActual) => valorPasado + valorActual.price * valorActual.cantidad, 0),
+    date: moment().format('DD/MM/YYYY, h:mm:ss a'),
   });
 
-  const {cart, removeItem, clear} = useContext(CartContext);
   const db = getFirestore();
 
     const createOrder = () => {
-
-      setOrder(() => {
-        return {
-          ...cart,
-          items: cart,
-          total: cart.reduce((valorPasado, valorActual) => valorPasado + valorActual.price * valorActual.cantidad, 0),
-          date: moment().format('DD/MM/YYYY, h:mm:ss a')
-        }
-      })
         const query = collection(db, 'favorites')
         addDoc(query, order)
           .then(({id}) => {
-          console.log(id);
-          updateStock();
-          alert('Felicidades por tu compra!');
+            console.log(id);
+            updateStock();
+            alert('Felicidades por tu compra!');
           })
           .catch(() => alert('Tu compra no pudo ser realizada, intentalo más tarde'))
     }
 
   const updateStock = () => {
     cart.forEach((product) => {
-      const queryUpdate = doc(db, 'favorites', product.id);
+      const queryUpdate = doc(db, 'items', product.id);
       updateDoc(queryUpdate, {
         categoryId: product.categoryId,
         title: product.title,
         image: product.image,
         price: product.price,
-        stock: product.stock - product.quantity,
+        stock: product.stock - product.cantidad,
       })
         .then(() => {
           if (cart[cart.length - 1].id === product.id) {
@@ -64,9 +55,19 @@ const Cart = () => {
     })
   }
 
+  const handleChange = (e) => {
+    setOrder({
+      ...order,
+      buyer: {
+        ...order.buyer,
+        [e.target.name]: e.target.value,
+      }
+    })
+  }
+
   return (
     <div>
-        <h1>Carrito</h1>
+        <h1 style={{marginLeft: '10px'}}>Carrito</h1>
         {cart.length === 0 ? (
           <>
             <h3>No hay productos en tu carrito</h3>
@@ -74,7 +75,7 @@ const Cart = () => {
           </>  
         ) : 
         (cart.map((item) => (
-            <div key={item.id}>
+            <div key={item.id} className='CardCart'>
                <h3>{item.title}</h3>
                <img src={item.image} width={'200px'}/>
                <p>Precio: {item.price}</p>
@@ -84,11 +85,28 @@ const Cart = () => {
         ))}
 
         {cart.length > 0 && <div style={{marginTop: '25px'}}>
-         <Link to={'/'}><button onClick={createOrder} 
-          style={{border: 'solid 2px red', borderRadius: '5px', fontSize: '12px'}}>Finalizar compra</button></Link> 
-         <button onClick={clear} 
-          style={{border: 'solid 2px red', borderRadius: '5px', fontSize: '12px'}}>Reiniciar</button>
-        </div>}
+
+          <div style={{margin: '20px 10px'}}>
+            <div>
+                <label><b>Nombre </b></label>
+                <input name='name' type="text" value={order.buyer.name} onChange={handleChange} required/>
+            </div>
+            <div>
+                <label><b>Telefono </b></label>
+                <input name='phone' type="number" value={order.buyer.phone} onChange={handleChange} required/>
+            </div>
+            <div>
+                <label><b>E-mail </b></label>
+                <input name='email' type="email" value={order.buyer.email} onChange={handleChange} required/>
+            </div>
+          </div>
+
+          <Link to={'/'}>
+            <button onClick={createOrder} style={{border: 'solid 2px black', borderRadius: '5px', fontSize: '16px', marginLeft: '10px'}}>Finalizar compra</button>
+          </Link>
+            <button onClick={clear} style={{border: 'solid 2px black', borderRadius: '5px', fontSize: '16px', marginLeft: '5px'}}>Reiniciar</button>
+
+        </div>}     
     </div>
   )
 }

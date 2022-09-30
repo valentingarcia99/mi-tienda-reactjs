@@ -2,6 +2,7 @@ import CartWidget from './CartWidget';
 import { Link } from 'react-router-dom';
 import { CartContext } from '../../context/cartContext';
 import { useContext } from "react";
+import './NavBar.css'
 
 const NavBar = () => {
 
@@ -15,8 +16,8 @@ const NavBar = () => {
                 <li><Link to={'category/Pistol'}>Pistols</Link></li>
                 <li><Link to={'category/Rifle'}>Rifles</Link></li>
             </ul>
-            <div style={{display: 'contents'}}>
-                {cart.length > 0 && <p>{cart.length}</p>}
+            <div className='cartIcon'>
+                {cart.length > 0 && <p className='totalItem'>{cart.length}</p>}
                 <img src='https://cdn-icons-png.flaticon.com/512/2543/2543193.png' height={'50px'}/>
             </div>
         </div>
