@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { CartContext } from "../../context/cartContext";
 import moment from 'moment';
 import { collection, addDoc, getFirestore, doc, updateDoc } from "firebase/firestore";
+import Swal from 'sweetalert2'
 
 const Cart = () => {
 
@@ -20,6 +21,8 @@ const Cart = () => {
     date: moment().format('DD/MM/YYYY, h:mm:ss a'),
   });
 
+  const totalPrice = cart.reduce((valorPasado, valorActual) => valorPasado + valorActual.price * valorActual.cantidad, 0)
+
   const db = getFirestore();
 
     const createOrder = () => {
@@ -28,7 +31,16 @@ const Cart = () => {
           .then(({id}) => {
             console.log(id);
             updateStock();
-            alert('Felicidades por tu compra!');
+            Swal.fire({
+              color: 'white',
+              title: '¡Gracias por tu compra!',
+              text: 'Precio total: ' + totalPrice,
+              imageUrl: 'https://images.contentstack.io/v3/assets/bltb6530b271fddd0b1/bltc04e4637524166dc/621853fd6be1e66143a66db2/022822_TakeoverCap_Banner.jpg',
+              background: 'url(https://t3.ftcdn.net/jpg/04/87/78/10/360_F_487781018_t38p12Uw2cKx2caLRFxEliUDhjPOhy68.jpg)',
+              imageWidth: 400,
+              imageHeight: 200,
+              imageAlt: 'Custom image',
+            })
           })
           .catch(() => alert('Tu compra no pudo ser realizada, intentalo más tarde'))
     }
@@ -66,45 +78,50 @@ const Cart = () => {
   }
 
   return (
-    <div>
+    <div className="Body">
         <h1 style={{marginLeft: '10px'}}>Carrito</h1>
-        {cart.length === 0 ? (
-          <>
-            <h3>No hay productos en tu carrito</h3>
-            <Link to={'/'} style={{color: 'orange'}}><h4>Volver a comprar</h4></Link>
-          </>  
-        ) : 
-        (cart.map((item) => (
-            <div key={item.id} className='CardCart'>
-               <h3>{item.title}</h3>
-               <img src={item.image} width={'200px'}/>
-               <p>Precio: {item.price}</p>
-               <p>Cantidad: {item.cantidad}</p>
-               <button onClick={() => removeItem(item.id)}>Eliminar producto</button>
-            </div>)
-        ))}
 
-        {cart.length > 0 && <div style={{marginTop: '25px'}}>
+        <div className="CartBody">  
+          {cart.length === 0 ? (
+            <>
+              <h3 style={{marginLeft: '10px'}}>No hay productos en tu carrito</h3>
+              <Link to={'/'} style={{color: 'white'}}><h4 style={{marginLeft: '10px'}}>Volver a comprar</h4></Link>
+            </>  
+          ) :
+          (cart.map((item) => (
+              <div key={item.id} className='CardCart'>
+                <h3>{item.title}</h3>
+                <img src={item.image} width={'200px'} height={'85px'}/>
+                <p>Precio: ${item.price}</p>
+                <p>Cantidad: {item.cantidad}</p>
+                <button onClick={() => removeItem(item.id)}>Eliminar producto</button>
+              </div>)
+          ))}
+        </div>
+        
+        {cart.length > 0 && <div style={{margin: '25px 10px'}}>
 
-          <div style={{margin: '20px 10px'}}>
+          <strong>Precio total: ${totalPrice}</strong>
+
+          <div style={{margin: '20px 0px'}}>
             <div>
-                <label><b>Nombre </b></label>
-                <input name='name' type="text" value={order.buyer.name} onChange={handleChange} required/>
+                <label>Nombre</label>
+                <input name='name' type="text" value={order.buyer.name} onChange={handleChange} placeholder="Introduzca su nombre" required/>
             </div>
             <div>
-                <label><b>Telefono </b></label>
-                <input name='phone' type="number" value={order.buyer.phone} onChange={handleChange} required/>
+                <label>Telefono</label>
+                <input name='phone' type="number" value={order.buyer.phone} onChange={handleChange} placeholder="Introduzca su teléfono" required/>
             </div>
             <div>
-                <label><b>E-mail </b></label>
-                <input name='email' type="email" value={order.buyer.email} onChange={handleChange} required/>
+                <label>E-mail</label>
+                <input name='email' type="email" value={order.buyer.email} onChange={handleChange} placeholder="Introduzca su e-mail" required/>
             </div>
           </div>
 
           <Link to={'/'}>
-            <button onClick={createOrder} style={{border: 'solid 2px black', borderRadius: '5px', fontSize: '16px', marginLeft: '10px'}}>Finalizar compra</button>
+          <button onClick={createOrder} style={{border: 'solid 2px black', borderRadius: '5px', fontSize: '16px'}}>Finalizar compra</button>
           </Link>
-            <button onClick={clear} style={{border: 'solid 2px black', borderRadius: '5px', fontSize: '16px', marginLeft: '5px'}}>Reiniciar</button>
+          <button onClick={clear} style={{border: 'solid 2px black', borderRadius: '5px', fontSize: '16px'}}>Reiniciar</button>
 
         </div>}     
     </div>

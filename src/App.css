@@ -69,3 +69,8 @@ a {
 button a {
   color: black;
 }
+
+label {
+  display: inline-block;
+  width: 110px;
+}

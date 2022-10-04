@@ -15,16 +15,18 @@ const ItemDetail = ({product}) => {
   }
 
     return (
-              <div className="Card" style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
+            <div className="Card" style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
+              
                 <Item
                 key={product.id}
                 title={product.title} 
                 price={product.price} 
-                image={product.image} />
+                image={product.image}/>
+
                 <ItemCount stock={product.stock} initialState={initialState} setInitialState={setInitialState}/>
                 {initialState > 0 && <button onClick={() => onAdd(product)}><Link to={'/cart'}>Añadir al carrito</Link></button>}
-              </div>
-            )
+            </div>
+          )
   }
 
 export default ItemDetail

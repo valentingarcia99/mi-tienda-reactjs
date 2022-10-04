@@ -1,3 +1,13 @@
+# Night Market
+
+Night Market es un proyecto hecho en ReactJS donde simulamos comprar diferentes armas del popular videojuego llamado `Valorant`.
+
+## Un breve GIF usando el sitio
+![](https://i.imgur.com/IRtxhu4.gif)
+
+### Librería utilizada
+`Sweet Alert 2`
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

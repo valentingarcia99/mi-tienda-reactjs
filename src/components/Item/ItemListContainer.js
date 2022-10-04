@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { Link, useParams } from "react-router-dom"
+import { useParams } from "react-router-dom"
 import ItemList from "./ItemList"
 import { getFirestore, getDocs, collection, query, where } from 'firebase/firestore'
 
@@ -41,7 +41,6 @@ const ItemListContainer = () => {
 
   return (
     <div className="Body">
-    <Link to="/cart">Carrito</Link>
     <ItemList lista={productList}/>
     </div>
   )
